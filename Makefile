@@ -12,7 +12,7 @@ SRCS := $(wildcard src/*.c)
 OBJS := $(SRCS:.c=.o)
 
 CFLAGS := -Wall -Werror -Iinclude
-LIBS := -lkernel_sys -lkernel -lSceSystemService -lSceUserService -lSceNet -lSceSsl -lSceHttp2
+LIBS := -lkernel_sys -lkernel -lSceSystemService -lSceUserService -lSceVideoOut -lSceNet -lSceSsl -lSceHttp2
 
 all: $(ELF)
 

@@ -1,28 +1,55 @@
 #include "it_games.h"
 #include "notify.h"
 #include "sysinfo.h"
+#include "user.h"
+#include "display.h"
 #include "net.h"
 
 int main(void) {
-    printf("[IT Games] Starting IT Games v%s...\n", IT_GAMES_VERSION);
+    printf("==========================================\n");
+    printf("     🎮 %s v%s     \n", IT_GAMES_APP_TITLE, IT_GAMES_VERSION);
+    printf("==========================================\n");
 
-    // 1. Gather hardware telemetry
-    ps5_sysinfo_t info;
-    sysinfo_get(&info);
-    sysinfo_print_and_notify(&info);
+    // 1. Initialize PlayStation User Service
+    ps5_user_profile_t user_profile;
+    user_subsystem_init();
+    user_get_active_profile(&user_profile);
+    printf("[IT Games] Active User: %s (UID: 0x%08X)\n", user_profile.username, user_profile.user_id);
 
-    // 2. Initialize networking subsystem
+    // 2. Query Display & Video Output
+    ps5_display_info_t display_info;
+    display_subsystem_init(&display_info);
+    printf("[IT Games] Display Resolution: %dx%d (Active: %s)\n",
+           display_info.width, display_info.height,
+           display_info.is_active ? "Yes" : "Fallback");
+
+    // 3. Gather Hardware Telemetry
+    ps5_sysinfo_t sys_info;
+    sysinfo_get(&sys_info);
+    printf("[IT Games] Model: %s (S/N: %s)\n", sys_info.model, sys_info.serial[0] ? sys_info.serial : "N/A");
+    printf("[IT Games] CPU: %d C | SoC: %d C | Clock: %ld MHz\n",
+           sys_info.cpu_temp, sys_info.soc_temp, sys_info.cpu_freq_mhz);
+
+    // 4. Send Welcome Pop-Up Notification to the TV
+    notify_send("🎮 Welcome %s to IT Games!\nModel: %s (%dx%d)\nCPU: %d°C | SoC: %d°C",
+                user_profile.username, sys_info.model,
+                display_info.width, display_info.height,
+                sys_info.cpu_temp, sys_info.soc_temp);
+
+    // 5. Initialize Network Subsystem
     printf("[IT Games] Initializing Network Subsystem...\n");
     if (net_subsystem_init("ITGames-PS5/" IT_GAMES_VERSION) == 0) {
-        printf("[IT Games] Network Subsystem initialized successfully.\n");
-        notify_send("🌐 IT Games Network Online!");
+        printf("[IT Games] Network Online (HTTP/2 + SSL ready).\n");
+        notify_send("🌐 IT Games Network Online!\nReady for game catalog sync.");
     } else {
-        printf("[IT Games] Network Subsystem initialization skipped or failed.\n");
+        printf("[IT Games] Network Subsystem skipped or offline.\n");
     }
 
-    // 3. Cleanup network on exit
+    // 6. Cleanup subsystems
     net_subsystem_fini();
+    display_subsystem_fini(&display_info);
+    user_subsystem_fini();
 
-    printf("[IT Games] Payload executed cleanly.\n");
+    printf("[IT Games] Core systems executed cleanly. Ready.\n");
     return 0;
 }

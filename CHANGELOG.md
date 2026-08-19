@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.3.0] - 2026-08-19
+
+### Added
+- **PlayStation User Service Integration** (`src/user.c`, `include/user.h`):
+  - Initialization of `sceUserService`.
+  - Active user ID resolution via `sceUserServiceGetInitialUser`.
+  - Account username / gamertag query via `sceUserServiceGetUserName`.
+- **Display & Video Output Subsystem** (`src/display.c`, `include/display.h`):
+  - Handle acquisition via `sceVideoOutOpen`.
+  - Display resolution detection (1080p/4K) via `sceVideoOutGetResolutionStatus`.
+- **Personalized Welcome Notification**:
+  - Combined gamertag, PS5 hardware model, active screen resolution, and real-time SoC/CPU thermal stats.
+- Compiled `it_games.elf` binary (92 KB) linking `libSceVideoOut`, `libSceUserService`, `libSceSystemService`, `libkernel_sys`, `libkernel`, `libSceNet`, `libSceSsl`, and `libSceHttp2`.
+
+---
+
 ## [0.2.0] - 2026-08-19
 
 ### Added
