@@ -616,7 +616,7 @@ class SignedElfFile(object):
 		self.meta_footer.unk1 = 0x10000
 
 		if not self.auth_info is None:
-			self.signature = (struct.pack('<QQ', len(self.auth_info), self.ex_info.paid) + self.auth_info[8:]).ljust(SIGNATURE_SIZE, '\0')
+			self.signature = (struct.pack('<QQ', len(self.auth_info), self.ex_info.paid) + self.auth_info[8:]).ljust(SIGNATURE_SIZE, b'\0')
 		else:
 			self.signature = EMPTY_SIGNATURE
 
@@ -708,7 +708,7 @@ def ensure_hex_string(val, **kwargs):
 			val = val[2:]
 		if len(val) % 2 != 0 or not all(x in string.hexdigits for x in val):
 			return None
-		val = val.decode('hex')
+		val = bytes.fromhex(val)
 		val_size = len(val)
 
 	if not exact_size is None and val_size != exact_size:

@@ -1,12 +1,12 @@
 {
   "applicationCategoryType": 0,
-  "applicationDrmType": "upgradable",
+  "applicationDrmType": "free",
   "attribute": 0,
   "attribute2": 0,
   "attribute3": 0,
   "conceptId": "999001",
   "contentBadgeType": 1,
-  "contentId": "IV0001-ITGA00001_00-ITGAMES000000000",
+  "contentId": "EP0001-ITGA00001_00-ITGAMES000000000",
   "contentVersion": "01.000.000",
   "downloadDataSize": 0,
   "localizedParameters": {
@@ -22,5 +22,7 @@
   },
   "requiredSystemSoftwareVersion": "0x0100000000000000",
   "sdkVersion": "0x0100000000000000",
-  "titleId": "ITGA00001"
+  "targetContentVersion": "01.000.000",
+  "titleId": "ITGA00001",
+  "userDefinedParam1": 0
 }
