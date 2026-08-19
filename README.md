@@ -100,9 +100,9 @@ To send the compiled payload to your PS5:
 ## 🗺 Roadmap
 
 - [x] **Milestone 1**: Dockerized Clang-15 PS5 toolchain setup & Hello World Notification ELF.
-- [ ] **Milestone 2**: 2D/3D Hardware-accelerated graphics rendering pipeline via `libSceVideoOut`.
-- [ ] **Milestone 3**: DualSense controller input polling (`libScePad`).
-- [ ] **Milestone 4**: High-speed socket networking and asynchronous download manager (`libSceNet` / `libSceHttp2`).
+- [x] **Milestone 2**: Modular architecture, Hardware/SoC Telemetry engine, and Native HTTP/2 Network Subsystem (`libSceNet`/`libSceHttp2`).
+- [ ] **Milestone 3**: 2D/3D Hardware-accelerated graphics rendering pipeline via `libSceVideoOut`.
+- [ ] **Milestone 4**: DualSense controller input polling (`libScePad` / `libSceUserService`).
 - [ ] **Milestone 5**: Full-screen interactive game browser & manager UI.
 
 ---

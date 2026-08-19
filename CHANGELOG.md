@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.2.0] - 2026-08-19
+
+### Added
+- Modular architecture with clean subsystem separation under `src/` and `include/`.
+- **System Telemetry Module** (`src/sysinfo.c`, `include/sysinfo.h`):
+  - Hardware model detection via `sceKernelGetHwModelName`.
+  - Serial number query via `sceKernelGetHwSerialNumber`.
+  - CPU temperature and SoC temperature sensors via `sceKernelGetCpuTemperature` / `sceKernelGetSocSensorTemperature`.
+  - CPU operating frequency reporting via `sceKernelGetCpuFrequency`.
+- **PS5 Native Notification Engine** (`src/notify.c`, `include/notify.h`):
+  - Formatted multi-argument pop-up notifications (`notify_send`).
+- **Network Subsystem** (`src/net.c`, `include/net.h`):
+  - Context pool initialization using `sceNet`, `sceSsl`, and `sceHttp2`.
+  - HTTP/HTTPS GET request capabilities for game metadata and asset retrieval.
+- Updated `Makefile` to compile modular sources against `libkernel_sys`, `libkernel`, `libSceSystemService`, `libSceUserService`, `libSceNet`, `libSceSsl`, and `libSceHttp2`.
+
+---
+
 ## [0.1.0] - 2026-08-19
 
 ### Added
