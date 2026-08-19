@@ -9,12 +9,12 @@ else
 endif
 
 ELF := it_games.elf
-SRCS := $(wildcard src/*.c)
+SRCS := src/main.c
 OBJS := $(SRCS:.c=.o)
-APP_DIR := app_pkg/ITGA00001-app0
+APP_DIR := app_pkg/PPSA99901-app0
 
 CFLAGS := -Wall -Werror -Iinclude
-LIBS := -lkernel_sys -lkernel -lSceSystemService -lSceUserService -lSceVideoOut -lSceNet -lSceSsl -lSceHttp2
+LIBS := -lkernel_sys -lSceSystemService
 
 all: $(ELF)
 
@@ -23,14 +23,6 @@ $(ELF): $(SRCS)
 
 clean:
 	rm -f $(ELF) $(OBJS)
-	rm -rf $(APP_DIR)
-
-app: $(ELF)
-	python scripts/build_app_assets.py $(APP_DIR)
-	python scripts/make_fself.py $(ELF) $(APP_DIR)/eboot.bin
-
-deploy-app: app
-	python scripts/deploy_app.py $(PS5_HOST) $(PS5_FTP_PORT) $(APP_DIR)
 
 test: $(ELF)
 	$(PS5_DEPLOY) -h $(PS5_HOST) -p $(PS5_PORT) $^
