@@ -20,7 +20,8 @@ int display_subsystem_init(ps5_display_info_t *disp) {
     disp->handle = -1;
 
     // Bus 0xFF (main display), Type 0, Index 0
-    int handle = sceVideoOutOpen(0xFF, 0, 0, NULL);
+    // int handle = sceVideoOutOpen(0xFF, 0, 0, NULL); // REMOVED: This can crash if Payload Manager owns the screen
+    int handle = -1;
     if (handle < 0) {
         // Fallback standard 1080p profile
         disp->width = 1920;

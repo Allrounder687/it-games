@@ -97,14 +97,29 @@ To send the compiled payload to your PS5:
 
 ---
 
+## 📦 Packaging as a Standalone PS5 App (app0)
+
+You can package and deploy **IT Games** as a full PlayStation 5 homebrew application with custom dashboard icons, splash art, and `param.json` metadata:
+
+```bash
+# Generate app assets, param.json, and assemble app_pkg/ITGA00001-app0
+make app
+
+# Directly deploy to PS5 via FTP (/data/homebrew/ITGA00001-app0)
+make deploy-app PS5_HOST=192.168.0.208
+```
+
+---
+
 ## 🗺 Roadmap
 
 - [x] **Milestone 1**: Dockerized Clang-15 PS5 toolchain setup & Hello World Notification ELF.
 - [x] **Milestone 2**: Modular architecture, Hardware/SoC Telemetry engine, and Native HTTP/2 Network Subsystem (`libSceNet`/`libSceHttp2`).
 - [x] **Milestone 3**: PlayStation User Profile & Account Gamertag resolution (`libSceUserService`) + Video Output and Display Resolution detection (`libSceVideoOut`).
-- [ ] **Milestone 4**: 2D/3D Hardware-accelerated framebuffer rendering canvas.
-- [ ] **Milestone 5**: DualSense controller input polling (`libScePad`).
-- [ ] **Milestone 6**: Interactive game browser & manager UI.
+- [x] **Milestone 4**: Native PS5 Standalone App Packaging Pipeline (`app0`, `param.json`, `icon0.png`, `pic0.png`, `eboot.bin`).
+- [ ] **Milestone 5**: 2D/3D Hardware-accelerated framebuffer rendering canvas.
+- [ ] **Milestone 6**: DualSense controller input polling (`libScePad`).
+- [ ] **Milestone 7**: Interactive game browser & manager UI.
 
 ---
 

@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.4.0] - 2026-08-19
+
+### Added
+- **Full PS5 Standalone App Packaging Pipeline**:
+  - Migrated from raw injected payloads to full native PlayStation 5 Homebrew Application format (`ITGA00001-app0`).
+  - Automated `param.json` metadata generation targeting Title ID `ITGA00001` and Content ID `IV0001-ITGA00001_00-ITGAMES000000000`.
+  - Automated asset generation for `icon0.png` (512x512 dashboard icon) and `pic0.png` / `pic1.png` (1920x1080 splash).
+  - Executable conversion mapping `it_games.elf` -> `eboot.bin`.
+  - Direct FTP deployment utility (`scripts/deploy_app.py`) deploying complete native app packages directly into `/data/homebrew/` for Itemzflow and ShadowMount launcher discovery.
+  - Added `make app` and `make deploy-app` automation targets.
+
+---
+
 ## [0.3.0] - 2026-08-19
 
 ### Added

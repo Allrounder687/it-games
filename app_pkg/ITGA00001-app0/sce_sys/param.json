@@ -1,0 +1,26 @@
+{
+  "applicationCategoryType": 0,
+  "applicationDrmType": "upgradable",
+  "attribute": 0,
+  "attribute2": 0,
+  "attribute3": 0,
+  "conceptId": "999001",
+  "contentBadgeType": 1,
+  "contentId": "IV0001-ITGA00001_00-ITGAMES000000000",
+  "contentVersion": "01.000.000",
+  "downloadDataSize": 0,
+  "localizedParameters": {
+    "defaultLanguage": "en-US",
+    "en-US": {
+      "titleName": "IT Games"
+    }
+  },
+  "masterVersion": "01.00",
+  "pubtools": {
+    "creationDate": "2026-08-19 23:40:00",
+    "toolVersion": "1.00"
+  },
+  "requiredSystemSoftwareVersion": "0x0100000000000000",
+  "sdkVersion": "0x0100000000000000",
+  "titleId": "ITGA00001"
+}

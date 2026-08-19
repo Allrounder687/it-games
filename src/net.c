@@ -29,8 +29,7 @@ static int g_template_id   = -1;
 
 int net_subsystem_init(const char *user_agent) {
     if (sceNetInit()) {
-        perror("sceNetInit");
-        return -1;
+        // May already be initialized by Payload Manager. We'll continue anyway.
     }
 
     g_net_pool_id = sceNetPoolCreate("it_games_net", 64 * 1024, 0);

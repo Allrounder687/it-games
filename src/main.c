@@ -10,6 +10,9 @@ int main(void) {
     printf("     🎮 %s v%s     \n", IT_GAMES_APP_TITLE, IT_GAMES_VERSION);
     printf("==========================================\n");
 
+    // Early notification to test execution
+    notify_send("🎮 IT Games Booting...");
+
     // 1. Initialize PlayStation User Service
     ps5_user_profile_t user_profile;
     user_subsystem_init();
@@ -51,5 +54,9 @@ int main(void) {
     user_subsystem_fini();
 
     printf("[IT Games] Core systems executed cleanly. Ready.\n");
+    
+    // Prevent immediate exit so the notification daemon can process the IPC message
+    sleep(3);
+    
     return 0;
 }
