@@ -1,23 +1,32 @@
 #include "notify.h"
+#include "log.h"
 #include <stdio.h>
 #include <stdarg.h>
 #include <string.h>
 
-int sceKernelSendNotificationRequest(int, notify_request_t*, size_t, int);
+int sceKernelSendNotificationRequest(int device, SceNotificationRequest *req, size_t size, int blocking);
 
-int notify_send(const char *fmt, ...) {
-    notify_request_t req;
-    va_list args;
+int notify_subsystem_init(void) {
+    return 0;
+}
 
-    bzero(&req, sizeof(req));
+void notify_send(const char *fmt, ...) {
+    SceNotificationRequest noti;
+    memset(&noti, 0, sizeof(noti));
 
-    va_start(args, fmt);
-    // Use vsnprintf carefully. If it crashes, we'll know.
-    vsnprintf(req.message, sizeof(req.message) - 1, fmt, args);
-    va_end(args);
-    
-    // Ensure null termination
-    req.message[sizeof(req.message) - 1] = '\0';
+    va_list ap;
+    va_start(ap, fmt);
+    vsnprintf(noti.message, sizeof(noti.message), fmt, ap);
+    va_end(ap);
 
-    return sceKernelSendNotificationRequest(0, &req, sizeof(req), 0);
+    noti.type = 0;
+    noti.use_icon_image_uri = 1;
+    noti.target_id = -1;
+    strncpy(noti.uri, "cxml://psnotification/tex_icon_system", sizeof(noti.uri) - 1);
+
+    int ret = sceKernelSendNotificationRequest(0, &noti, sizeof(noti), 0);
+    log_info("Notification Sent (ret=%d): \"%s\"", ret, noti.message);
+}
+
+void notify_subsystem_fini(void) {
 }

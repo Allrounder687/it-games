@@ -1,26 +1,46 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 
-typedef struct notify_request {
-    char useless1[45];
-    char message[3075];
-} notify_request_t;
-
-int sceKernelSendNotificationRequest(int, notify_request_t*, size_t, int);
-int sceSystemServiceLaunchWebBrowser(const char *uri, void *reserved);
+#include "it_games.h"
+#include "notify.h"
+#include "sysinfo.h"
+#include "user.h"
+#include "log.h"
 
 int main(void) {
-    notify_request_t req;
-    bzero(&req, sizeof(req));
-    strncpy(req.message, "🎮 IT Games Engine Online!\nWelcome to PS5 Homebrew!", sizeof(req.message) - 1);
-    sceKernelSendNotificationRequest(0, &req, sizeof(req), 0);
+    // 1. Initialize Log Subsystem on PS5 SSD (/data/it_games/debug.log)
+    log_init();
+    log_info("Starting %s v%s", IT_GAMES_APP_TITLE, IT_GAMES_VERSION);
 
-    sleep(1);
+    // 2. Initialize User Profile
+    ps5_user_profile_t profile;
+    memset(&profile, 0, sizeof(profile));
+    int user_ret = user_subsystem_init();
+    log_info("UserService Init ret=%d", user_ret);
 
-    // Launch web browser
-    sceSystemServiceLaunchWebBrowser("https://google.com", NULL);
+    int prof_ret = user_get_active_profile(&profile);
+    log_info("UserProfile Query ret=%d (User ID: %d, Username: '%s')",
+             prof_ret, profile.user_id, profile.username);
 
-    sleep(3);
+    // 3. Query Hardware & Thermal Telemetry
+    ps5_sysinfo_t sysinfo;
+    memset(&sysinfo, 0, sizeof(sysinfo));
+    int sys_ret = sysinfo_get(&sysinfo);
+    log_info("SysInfo Query ret=%d (Model: %s, CPU: %d°C, SoC: %d°C)",
+             sys_ret, sysinfo.model, sysinfo.cpu_temp, sysinfo.soc_temp);
+
+    // 4. Send Official PlayStation 5 Pop-up Notification
+    notify_send("🎮 IT Games Online!\nUser: %s | PS5 %s | CPU: %d°C",
+        profile.username[0] ? profile.username : "Player",
+        sysinfo.model[0] ? sysinfo.model : "Console",
+        sysinfo.cpu_temp);
+
+    log_info("Main payload thread sleeping to allow notification delivery...");
+    sleep(5);
+
+    user_subsystem_fini();
+    log_info("IT Games payload execution finished successfully.");
     return 0;
 }

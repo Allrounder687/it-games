@@ -9,17 +9,17 @@ else
 endif
 
 ELF := it_games.elf
-SRCS := src/main.c
+SRCS := src/main.c src/log.c src/notify.c src/sysinfo.c src/user.c
 OBJS := $(SRCS:.c=.o)
-APP_DIR := app_pkg/PPSA99901-app0
 
-CFLAGS := -Wall -Werror -Iinclude
-LIBS := -lkernel_sys -lSceSystemService
+CFLAGS := -Wall -Werror -O2 -Iinclude
+LIBS := -lkernel_sys -lkernel -lSceUserService
 
 all: $(ELF)
 
 $(ELF): $(SRCS)
 	$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
+	strip --strip-all $@
 
 clean:
 	rm -f $(ELF) $(OBJS)
