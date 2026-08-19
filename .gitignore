@@ -1,0 +1,16 @@
+# Binaries and object files
+*.elf
+*.o
+*.so
+*.a
+
+# Editor and OS files
+.DS_Store
+Thumbs.db
+*~
+*.swp
+*.bak
+
+# Build artifacts and temp
+temp/
+build/
