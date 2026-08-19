@@ -24,8 +24,9 @@ def upload_directory(ftp, local_dir, remote_dir):
 def main():
     host = sys.argv[1] if len(sys.argv) > 1 else "192.168.0.208"
     port = int(sys.argv[2]) if len(sys.argv) > 2 else 2121
-    local_app_dir = sys.argv[3] if len(sys.argv) > 3 else "app_pkg/ITGA00001-app0"
-    remote_base = "/data/homebrew/ITGA00001-app0"
+    local_app_dir = sys.argv[3] if len(sys.argv) > 3 else "app_pkg/PPSA99901-app0"
+    folder_name = os.path.basename(os.path.normpath(local_app_dir))
+    remote_base = f"/data/homebrew/{folder_name}"
 
     print(f"Connecting to PS5 FTP at {host}:{port}...")
     ftp = FTP()
