@@ -27,7 +27,7 @@ clean:
 
 app: $(ELF)
 	python scripts/build_app_assets.py $(APP_DIR)
-	cp $(ELF) $(APP_DIR)/eboot.bin
+	python scripts/make_fself.py $(ELF) $(APP_DIR)/eboot.bin
 
 deploy-app: app
 	python scripts/deploy_app.py $(PS5_HOST) $(PS5_FTP_PORT) $(APP_DIR)
