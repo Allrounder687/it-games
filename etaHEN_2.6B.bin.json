@@ -1,0 +1,10 @@
+{
+  "name": "etaHEN",
+  "filename": "etaHEN_2.6B.bin",
+  "url": "https://github.com/etaHEN/etaHEN/releases/download/2.6B/etaHEN-2.6B.bin",
+  "source": "https://github.com/etaHEN/etaHEN/releases",
+  "description": "AIO HEN payload with kstuff and sceAppInstUtil hooks.",
+  "last_update": "2026-08-19",
+  "version": "2.6B",
+  "category": "System & Jailbreak"
+}
